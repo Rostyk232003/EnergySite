@@ -40,3 +40,34 @@ a {
     color-scheme: dark;
   }
 }
+
+.app {
+  text-align: center;
+}
+
+.app-header {
+  background-color: white;
+}
+
+.hero-section {
+  position: relative;
+  height: 70vh;
+  margin-top: 56px;
+}
+
+.hero-image {
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}

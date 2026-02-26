@@ -1,66 +1,71 @@
+import Menu from "../components/menu/Menu";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  Button,
+} from "react-bootstrap";
 import Image from "next/image";
-import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Menu />
+
+      {/* Hero Section */}
+      <div className="hero-section">
+        <Image src="/solar.jpg" alt="Solar panels" fill className="hero-image" />
+
+        <div className="hero-overlay">
+          <h1>Smart Renewable Energy Monitoring</h1>
+          <p>Track solar, wind and battery performance in real time</p>
+          <Button variant="success">Learn More</Button>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Cards Section */}
+      <Container className="mt-5 mb-5">
+        <Row className="g-4">
+
+          <Col md={4}>
+            <Card className="shadow h-100">
+              <CardBody>
+                <CardTitle>Solar Energy</CardTitle>
+                <CardText>
+                  Monitor real-time solar production and efficiency.
+                </CardText>
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col md={4}>
+            <Card className="shadow h-100">
+              <CardBody>
+                <CardTitle>Wind Energy</CardTitle>
+                <CardText>
+                  Track wind turbine output and performance metrics.
+                </CardText>
+              </CardBody>
+            </Card>
+          </Col>
+
+          <Col md={4}>
+            <Card className="shadow h-100">
+              <CardBody>
+                <CardTitle>Battery Storage</CardTitle>
+                <CardText>
+                  Analyze storage levels and consumption trends.
+                </CardText>
+              </CardBody>
+            </Card>
+          </Col>
+
+        </Row>
+      </Container>
+    </>
   );
 }
