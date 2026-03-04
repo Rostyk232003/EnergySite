@@ -1,4 +1,3 @@
-import Menu from "../components/menu/Menu";
 import {
   Container,
   Row,
@@ -14,8 +13,6 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <Menu />
-
       {/* Hero Section */}
       <div className="hero-section">
         <Image src="/solar.jpg" alt="Solar panels" fill className="hero-image" />
