@@ -34,6 +34,41 @@ body {
   flex: 1;
 }
 
+.page-content {
+  padding-top: 80px;
+  padding-bottom: 24px;
+}
+
+.shopcard-media {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+  background: #0b0f14;
+}
+
+.shopcard-media-img {
+  object-fit: cover;
+}
+
+.shopcard-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.details-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: #0b0f14;
+}
+
+.details-image {
+  object-fit: cover;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

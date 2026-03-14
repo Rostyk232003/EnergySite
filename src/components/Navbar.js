@@ -18,8 +18,12 @@ export default function NavbarComponent() {
             <Nav.Link as={Link} href="/">
               Home
             </Nav.Link>
-            <Nav.Link href="#">Dashboard</Nav.Link>
-            <Nav.Link href="#">Analytics</Nav.Link>
+            <Nav.Link as={Link} href="/dashboard">
+              Dashboard
+            </Nav.Link>
+            <Nav.Link as={Link} href="/analytics">
+              Analytics
+            </Nav.Link>
           </Nav>
         </BsNavbar.Collapse>
       </Container>
