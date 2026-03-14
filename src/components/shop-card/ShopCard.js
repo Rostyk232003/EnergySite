@@ -10,7 +10,24 @@ import {
   CardTitle,
 } from "react-bootstrap";
 
-const ShopCard = ({ card, onSelect, isSelected }) => {
+const formatMoney = (value) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+
+const ShopCard = ({
+  card,
+  onSelect,
+  isSelected,
+  quantity,
+  onSecondary,
+  secondaryLabel = "Remove",
+  selectLabel = "Select",
+  selectedLabel = "Selected",
+  selectedBadgeText = "Active",
+}) => {
   // Props are immutable: we only READ values from them, never mutate.
   const {
     id,
@@ -18,11 +35,17 @@ const ShopCard = ({ card, onSelect, isSelected }) => {
     description = "",
     imageSrc,
     imageAlt = title,
+    price,
   } = card ?? {};
 
   const handleSelect = () => {
     if (!id) return;
     onSelect?.(id);
+  };
+
+  const handleSecondary = () => {
+    if (!id) return;
+    onSecondary?.(id);
   };
 
   return (
@@ -46,10 +69,19 @@ const ShopCard = ({ card, onSelect, isSelected }) => {
       <CardBody className="d-flex flex-column">
         <CardTitle className="d-flex align-items-center justify-content-between">
           <span>{title}</span>
-          {isSelected ? <Badge bg="primary">Active</Badge> : null}
+          {isSelected ? (
+            <Badge bg="primary">
+              {selectedBadgeText}
+              {Number(quantity) > 0 ? ` x${Number(quantity)}` : ""}
+            </Badge>
+          ) : null}
         </CardTitle>
         <CardText className="shopcard-text">{description}</CardText>
-        <div className="d-grid mt-auto">
+        {price != null ? (
+          <div className="shopcard-price mt-1">{formatMoney(Number(price) || 0)}</div>
+        ) : null}
+
+        <div className="d-grid gap-2 mt-auto">
           <Button
             variant={isSelected ? "primary" : "outline-primary"}
             onClick={(e) => {
@@ -57,8 +89,19 @@ const ShopCard = ({ card, onSelect, isSelected }) => {
               handleSelect();
             }}
           >
-            {isSelected ? "Selected" : "Select"}
+            {isSelected ? selectedLabel : selectLabel}
           </Button>
+          {onSecondary && Number(quantity) > 0 ? (
+            <Button
+              variant="outline-secondary"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSecondary();
+              }}
+            >
+              {secondaryLabel}
+            </Button>
+          ) : null}
         </div>
       </CardBody>
     </Card>

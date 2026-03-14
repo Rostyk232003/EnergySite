@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Navbar as BsNavbar, Container, Nav } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar as BsNavbar } from "react-bootstrap";
+import { useCart } from "./cart/CartProvider";
 
 export default function NavbarComponent() {
+  const { totalCount } = useCart();
+
   return (
     <BsNavbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
@@ -18,11 +21,18 @@ export default function NavbarComponent() {
             <Nav.Link as={Link} href="/">
               Home
             </Nav.Link>
+            <Nav.Link as={Link} href="/shop">
+              Equipment Shop
+            </Nav.Link>
             <Nav.Link as={Link} href="/dashboard">
               Dashboard
             </Nav.Link>
             <Nav.Link as={Link} href="/analytics">
               Analytics
+            </Nav.Link>
+            <Nav.Link as={Link} href="/bin" className="d-flex align-items-center gap-2">
+              <span>Bin</span>
+              <Badge bg="primary">{totalCount}</Badge>
             </Nav.Link>
           </Nav>
         </BsNavbar.Collapse>

@@ -4,6 +4,7 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComponent from "../components/Navbar";
 import Footer from "../components/Footer";
+import { CartProvider } from "../components/cart/CartProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} site-shell`}>
-        <NavbarComponent />
-        <main className="site-main">{children}</main>
-        <Footer />
+        <CartProvider>
+          <NavbarComponent />
+          <main className="site-main">{children}</main>
+          <Footer />
+        </CartProvider>
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
           strategy="afterInteractive"
