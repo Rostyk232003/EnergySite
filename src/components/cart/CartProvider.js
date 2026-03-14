@@ -1,14 +1,15 @@
 "use client";
 
 import { createContext, useContext, useSyncExternalStore } from "react";
+import { STORAGE_KEY } from "../../constants/storage";
 
 const CartContext = createContext(null);
-
-const STORAGE_KEY = "smart-energy-cart-v1";
 
 const EMPTY_ITEMS = [];
 const listeners = new Set();
 
+// Notifies all subscribers that the underlying storage snapshot has changed.
+// This triggers React to re-run getSnapshot() for useSyncExternalStore consumers.
 const emitChange = () => {
   for (const listener of listeners) listener();
 };
@@ -40,6 +41,16 @@ const normalizeItems = (parsed) => {
 let cachedRaw = null;
 let cachedItems = EMPTY_ITEMS;
 
+// getSnapshot(): Reads the cart from localStorage.
+//
+// Important for hydration:
+// - During SSR/hydration, React uses getServerSnapshot() (we return EMPTY_ITEMS) so the
+//   initial HTML matches the client tree.
+// - After hydration, React calls this getSnapshot() and re-renders if the snapshot differs.
+//
+// Important for performance:
+// - useSyncExternalStore expects snapshots to be referentially stable when data didn't change.
+//   We cache the raw JSON string and the parsed array so repeated reads don't cause re-renders.
 const readItems = () => {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -59,6 +70,9 @@ const readItems = () => {
   }
 };
 
+// Writes cart data to localStorage and emits a change so all subscribers update.
+// This is how addItem/decrementItem/removeItem keep React UI in sync with localStorage
+// without a useEffect-based "mirror state".
 const writeItems = (nextItems) => {
   try {
     const normalized = normalizeItems(nextItems);
@@ -73,6 +87,10 @@ const writeItems = (nextItems) => {
 };
 
 export const CartProvider = ({ children }) => {
+  // useSyncExternalStore makes localStorage act like a reactive store:
+  // - subscribe() tells React how to listen for changes (our internal emitter + 'storage' event).
+  // - readItems() is the snapshot getter for the client.
+  // - getServerSnapshot() returns EMPTY_ITEMS so SSR output is deterministic.
   const items = useSyncExternalStore(subscribe, readItems, () => EMPTY_ITEMS);
 
   const addItem = (item) => {
