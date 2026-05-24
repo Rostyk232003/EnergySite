@@ -1,0 +1,18 @@
+{
+  "energyUsage": [
+    { "month": "January", "value": 120 },
+    { "month": "February", "value": 110 },
+    { "month": "March", "value": 130 },
+    { "month": "April", "value": 125 },
+    { "month": "May", "value": 140 },
+    { "month": "June", "value": 135 }
+  ],
+  "costs": [
+    { "month": "January", "value": 2400 },
+    { "month": "February", "value": 2200 },
+    { "month": "March", "value": 2600 },
+    { "month": "April", "value": 2500 },
+    { "month": "May", "value": 2800 },
+    { "month": "June", "value": 2700 }
+  ]
+}

@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+const AnalyticsChart = dynamic(() => import("../../analytics/AnalyticsChart"), { ssr: false });
 import {
   Badge,
   Button,
@@ -70,6 +72,12 @@ export default function AnalyticsPage() {
         </Col>
       </Row>
 
+      {/* Додаємо графіки/діаграми */}
+      <Row className="my-4">
+        <Col>
+          <AnalyticsChart />
+        </Col>
+      </Row>
       <Row className="g-4">
         <Col md={4}>
           <Card className="shadow-sm h-100">
